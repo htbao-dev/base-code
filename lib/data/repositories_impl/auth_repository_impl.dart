@@ -3,11 +3,10 @@ import 'package:dapass/data/datasource/local_datasource/auth_local_datasource.da
 import 'package:dapass/data/datasource/remote_datasource/auth_remote_datasource.dart';
 import 'package:dapass/repositories/auth_repository.dart';
 
-part 'base_repository.dart';
-
-class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
+class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _authRemoteDataSource;
   final AuthLocalDataSource _authLocalDatasource;
+  final LiveDataSource _liveDataSource = LiveDataSource();
   AuthRepositoryImpl(
       {required AuthRemoteDataSource authRemoteDataSource,
       required AuthLocalDataSource authLocalDatasource})
@@ -19,7 +18,7 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
     try {
       final String token =
           await _authRemoteDataSource.login(username, password);
-      _liveDatasource.setToken(token);
+      _liveDataSource.setToken(token);
       _authLocalDatasource.saveToken(token);
       return token;
     } catch (_) {

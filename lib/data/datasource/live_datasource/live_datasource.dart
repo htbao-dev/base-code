@@ -1,6 +1,6 @@
 import 'package:dapass/model/user.dart';
 
-class LiveDatasource {
+class LiveDataSource {
   String? _token;
   User? _currentUser;
 
@@ -15,7 +15,7 @@ class LiveDatasource {
   }
 
   //singleton
-  LiveDatasource._internal();
-  static final LiveDatasource _instance = LiveDatasource._internal();
-  factory LiveDatasource() => _instance;
+  LiveDataSource._internal();
+  static final LiveDataSource _instance = LiveDataSource._internal();
+  factory LiveDataSource() => _instance;
 }
