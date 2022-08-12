@@ -1,4 +1,6 @@
+import 'package:dapass/core/data/base_api.dart';
 import 'package:dapass/data/datasource/local_datasource/auth_local_datasource.dart';
+import 'package:dapass/data/datasource/remote_datasource/api_url.dart';
 import 'package:dapass/data/datasource/remote_datasource/auth_remote_datasource.dart';
 import 'package:dapass/data/repositories_impl/auth_repository_impl.dart';
 import 'package:dapass/repositories/auth_repository.dart';
@@ -23,7 +25,8 @@ class DependencyInjection extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<AuthRemoteDataSource>(
-          create: (_) => AuthRemoteDataSourceImpl(),
+          create: (_) =>
+              AuthRemoteDataSourceImpl(baseApi: BaseApiImpl(ApiUrl.domain)),
         ),
         Provider<AuthLocalDataSource>(
           create: (_) => AuthLocalDataSourceImpl(),

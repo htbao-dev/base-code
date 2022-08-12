@@ -1,15 +1,43 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:dapass/data/datasource/remote_datasource/api_url.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
-class BaseApi {
-  final String _domain = ApiUrl.domain;
+abstract class BaseApi {
+  Future<dynamic> getMethod(url,
+      {Map<String, String>? headers,
+      Map<String, dynamic>? param,
+      String? token});
 
-  BaseApi();
+  Future<dynamic> postMethod(url,
+      {param,
+      body,
+      Map<String, String>? headers,
+      noJsonEncode = false,
+      String? token});
 
+  Future<dynamic> deleteMethod(url,
+      {param,
+      body,
+      Map<String, String>? headers,
+      noJsonEncode = false,
+      String? token});
+
+  Future<dynamic> putMethod(url,
+      {param,
+      body,
+      Map<String, String>? headers,
+      noJsonEncode = false,
+      String? token});
+}
+
+class BaseApiImpl implements BaseApi {
+  final String _domain;
+
+  BaseApiImpl(this._domain);
+
+  @override
   Future<dynamic> getMethod(url,
       {Map<String, String>? headers,
       Map<String, dynamic>? param,
@@ -26,6 +54,7 @@ class BaseApi {
     return _handleResponse(statusCode, response);
   }
 
+  @override
   Future<dynamic> postMethod(url,
       {param,
       body,
@@ -50,6 +79,7 @@ class BaseApi {
     return _handleResponse(statusCode, response);
   }
 
+  @override
   Future<dynamic> putMethod(url,
       {param,
       body,
@@ -75,6 +105,7 @@ class BaseApi {
     return _handleResponse(statusCode, response);
   }
 
+  @override
   Future<dynamic> deleteMethod(url,
       {param,
       body,
