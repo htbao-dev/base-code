@@ -23,6 +23,6 @@ jobs:
         with:
           flutter-version: "2.10.5"
       - run: flutter pub get
-      - run: flutter pub run build_runner build
+      # - run: flutter pub run build_runner build
       - run: flutter test
       - run: flutter build apk
